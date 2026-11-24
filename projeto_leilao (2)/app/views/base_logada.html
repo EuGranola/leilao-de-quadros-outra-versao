@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{# Layout das telas com login: topo + avisos + área de conteúdo. #}
+{% block corpo %}
+{% include "_topo.html" %}
+
+<main class="conteudo">
+  {% for categoria, mensagem in get_flashed_messages(with_categories=true) %}
+    <p class="aviso aviso-{{ categoria }}" role="{{ 'alert' if categoria == 'erro' else 'status' }}">{{ mensagem }}</p>
+  {% endfor %}
+
+  {% block conteudo %}{% endblock %}
+</main>
+{% endblock %}

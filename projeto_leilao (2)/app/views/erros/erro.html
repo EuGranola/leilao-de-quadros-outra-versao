@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ titulo }} · Leilão de Quadros{% endblock %}
+{% block classe_body %}pagina-login{% endblock %}
+
+{% block corpo %}
+<main class="parede">
+  <section class="moldura" aria-labelledby="titulo-erro">
+    <div class="passepartout">
+      <p class="erro-codigo">{{ status }}</p>
+      <h1 id="titulo-erro">{{ titulo }}</h1>
+      <p class="erro-mensagem">{{ mensagem }}</p>
+      <a class="botao" href="{{ url_for('home') }}">Voltar para as obras</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

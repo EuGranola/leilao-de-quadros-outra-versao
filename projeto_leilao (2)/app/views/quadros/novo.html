@@ -1,0 +1,63 @@
+{% extends "base_logada.html" %}
+
+{% block titulo %}Cadastrar quadro · Leilão de Quadros{% endblock %}
+
+{% block conteudo %}
+<div class="cabecalho-pagina">
+  <div>
+    <h1>Cadastrar quadro</h1>
+    <p class="subtitulo">A obra aparece na listagem assim que você salvar.</p>
+  </div>
+</div>
+
+<form class="formulario" method="post" action="{{ url_for('quadros.novo') }}" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <div class="campo">
+    <label for="titulo">Título</label>
+    <input id="titulo" name="titulo" type="text" maxlength="120" required autofocus
+           value="{{ valores.get('titulo', '') }}">
+  </div>
+
+  <div class="campo">
+    <label for="artista">Artista</label>
+    <input id="artista" name="artista" type="text" maxlength="120" required
+           value="{{ valores.get('artista', '') }}">
+  </div>
+
+  <div class="campo-duplo">
+    <div class="campo">
+      <label for="ano">Ano <span class="opcional">(opcional)</span></label>
+      <input id="ano" name="ano" type="number" inputmode="numeric" min="1000" max="2100"
+             value="{{ valores.get('ano', '') }}">
+    </div>
+    <div class="campo">
+      <label for="preco">Lance inicial (R$)</label>
+      <input id="preco" name="preco" type="number" inputmode="decimal" step="0.01" min="0.01" required
+             value="{{ valores.get('preco', '') }}">
+    </div>
+  </div>
+
+  <div class="campo">
+    <label for="tecnica">Técnica <span class="opcional">(opcional)</span></label>
+    <input id="tecnica" name="tecnica" type="text" maxlength="80"
+           placeholder="Óleo sobre tela" value="{{ valores.get('tecnica', '') }}">
+  </div>
+
+  <div class="campo">
+    <label for="descricao">Descrição <span class="opcional">(opcional)</span></label>
+    <textarea id="descricao" name="descricao" rows="4" maxlength="2000">{{ valores.get('descricao', '') }}</textarea>
+  </div>
+
+  <div class="campo">
+    <label for="imagem">Imagem <span class="opcional">(opcional)</span></label>
+    <input id="imagem" name="imagem" type="file" accept="image/jpeg,image/png,image/webp">
+    <p class="dica">JPG, PNG ou WEBP, até 5 MB. Por segurança, selecione o arquivo de novo se o formulário voltar com erro.</p>
+  </div>
+
+  <div class="acoes">
+    <button type="submit" class="botao">Cadastrar quadro</button>
+    <a href="{{ url_for('quadros.listar') }}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

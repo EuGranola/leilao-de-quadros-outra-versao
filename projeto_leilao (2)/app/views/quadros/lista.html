@@ -1,0 +1,36 @@
+{% extends "base_logada.html" %}
+
+{% block titulo %}Obras em leilão · Leilão de Quadros{% endblock %}
+
+{% block conteudo %}
+<div class="cabecalho-pagina">
+  <div>
+    <h1>Obras em leilão</h1>
+    <p class="subtitulo">
+      {% if paginacao.total %}
+        {{ paginacao.total }} {{ 'obra cadastrada' if paginacao.total == 1 else 'obras cadastradas' }}{% if paginacao.total_paginas > 1 %}, página {{ paginacao.pagina }} de {{ paginacao.total_paginas }}{% endif %}
+      {% else %}
+        Nenhuma obra cadastrada ainda
+      {% endif %}
+    </p>
+  </div>
+  <a class="botao" href="{{ url_for('quadros.novo') }}">Cadastrar quadro</a>
+</div>
+
+{% if quadros %}
+  <ul class="galeria">
+    {% for quadro in quadros %}
+      <li>{% include "quadros/_lote.html" %}</li>
+    {% endfor %}
+  </ul>
+
+  {% if paginacao.total_paginas > 1 %}
+    {% include "quadros/_paginacao.html" %}
+  {% endif %}
+{% else %}
+  <div class="vazio">
+    <p>A parede está vazia.</p>
+    <p>Cadastre o primeiro quadro para ele aparecer aqui.</p>
+  </div>
+{% endif %}
+{% endblock %}

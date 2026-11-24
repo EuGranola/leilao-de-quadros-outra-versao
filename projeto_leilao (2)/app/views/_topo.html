@@ -1,0 +1,16 @@
+<header class="topo">
+  <a class="topo-marca" href="{{ url_for('home') }}">Leilão de Quadros</a>
+
+  <nav class="topo-nav" aria-label="Principal">
+    <a href="{{ url_for('quadros.listar') }}"{% if request.endpoint == 'quadros.listar' %} aria-current="page"{% endif %}>Obras em leilão</a>
+    <a href="{{ url_for('quadros.novo') }}"{% if request.endpoint == 'quadros.novo' %} aria-current="page"{% endif %}>Cadastrar quadro</a>
+  </nav>
+
+  <div class="topo-usuario">
+    <span>{{ usuario.nome }}</span>
+    <form method="post" action="{{ url_for('auth.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="botao botao-secundario">Sair</button>
+    </form>
+  </div>
+</header>

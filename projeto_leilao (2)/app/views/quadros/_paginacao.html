@@ -1,0 +1,26 @@
+{# Navegação entre páginas. Espera a variável `paginacao` (objeto Paginacao). #}
+<nav class="paginacao" aria-label="Paginação">
+  {% if paginacao.tem_anterior %}
+    <a class="pag-link" rel="prev" href="{{ url_for('quadros.listar', pagina=paginacao.anterior) }}">Anterior</a>
+  {% else %}
+    <span class="pag-link pag-desativado">Anterior</span>
+  {% endif %}
+
+  <ol class="pag-numeros">
+    {% for numero in paginacao.janela() %}
+      {% if numero is none %}
+        <li class="pag-reticencias" aria-hidden="true">…</li>
+      {% elif numero == paginacao.pagina %}
+        <li><span class="pag-link pag-atual" aria-current="page">{{ numero }}</span></li>
+      {% else %}
+        <li><a class="pag-link" href="{{ url_for('quadros.listar', pagina=numero) }}">{{ numero }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+
+  {% if paginacao.tem_proxima %}
+    <a class="pag-link" rel="next" href="{{ url_for('quadros.listar', pagina=paginacao.proxima) }}">Próxima</a>
+  {% else %}
+    <span class="pag-link pag-desativado">Próxima</span>
+  {% endif %}
+</nav>

@@ -1,0 +1,28 @@
+{# Um quadro na parede: moldura com a obra + plaquinha de museu. Espera a variável `quadro`. #}
+<article class="lote">
+  <div class="moldura-obra">
+    <div class="tela">
+      {% if quadro.imagem %}
+        <img src="{{ url_for('static', filename='uploads/' ~ quadro.imagem) }}"
+             alt="{{ quadro.titulo }}, de {{ quadro.artista }}" loading="lazy">
+      {% else %}
+        <span class="sem-imagem">Sem imagem</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="etiqueta">
+    <div class="etiqueta-topo">
+      <h2 class="etiqueta-titulo">{{ quadro.titulo }}</h2>
+      <p class="etiqueta-artista">{{ quadro.artista }}</p>
+      {% if quadro.tecnica or quadro.ano %}
+        <p class="etiqueta-detalhe">{{ [quadro.tecnica, quadro.ano]|select|join(', ') }}</p>
+      {% endif %}
+    </div>
+    <p class="etiqueta-preco">
+      <span>Lance inicial</span>
+      <strong>{{ quadro.preco_formatado }}</strong>
+    </p>
+    <p class="etiqueta-dono">Cadastrado por {{ quadro.dono_nome }}</p>
+  </div>
+</article>
